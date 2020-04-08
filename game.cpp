@@ -73,10 +73,39 @@ int Game::_checkwin(int i, int j)
     return 0;
 }
 
-ostream &operator<<(ostream &os, vector<vector<int>> grid)
+ostream &operator<<(ostream &os, const Game &game)
 {
-    os << grid[0][0] << " " << grid[0][1] << " " << grid[0][2] << endl;
-    os << grid[1][0] << " " << grid[1][1] << " " << grid[1][2] << endl;
-    os << grid[2][0] << " " << grid[2][1] << " " << grid[2][2] << endl;
+    vector<vector<char>> grid(3, vector<char>(3));
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            switch (game._grid[i][j])
+{
+            case 1:
+                grid[i][j] = game._player_1_symbol;
+                break;
+
+            case 2:
+                grid[i][j] = game._player_2_symbol;
+                break;
+
+            default:
+                grid[i][j] = ' ';
+                break;
+            }
+        }
+    }
+
+    os << endl
+       << "    1   2   3 " << endl
+       << endl
+       << "1   " << grid[0][0] << " | " << grid[0][1] << " | " << grid[0][2] << " " << endl
+       << "   -----------" << endl
+       << "2   " << grid[1][0] << " | " << grid[1][1] << " | " << grid[1][2] << " " << endl
+       << "   -----------" << endl
+       << "3   " << grid[2][0] << " | " << grid[2][1] << " | " << grid[2][2] << " " << endl
+       << endl;
     return os;
 }
