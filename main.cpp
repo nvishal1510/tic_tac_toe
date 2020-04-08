@@ -14,45 +14,55 @@ int main()
     Game game(p1symbol, p2symbol);
 
     bool someone_won = false;
+    cout << game;
     while (game.count < 9)
     {
-        cout << game;
         static int player = 1;
 
+        int row, column;
         //take input, markbox and check if someone won
         while (!someone_won)
         {
-            int i, j;
             cout << "Player " << player << ", Please enter the box row number to mark" << endl;
-            cin >> i;
+            cin >> row;
             cout << "Player " << player << ", Please enter the box column number to mark" << endl;
-            cin >> j;
+            cin >> column;
 
-            i--;
-            j--; //decrease i, j by 1 because _grid index start from 0 but in user output it starts from 1
+            row--;
+            column--; //decrease i, j by 1 because _grid index start from 0 but in user output it starts from 1
 
-            int mark_result = game.markbox(i, j, player);
+            int mark_result = game.markbox(row, column, player);
+
             if (mark_result == 0)
             {
                 cout << "This box is already marked." << endl;
+                cout << game;
                 continue;
             }
+
             else if (mark_result == -1)
             {
                 cout << "The entered box numbers are not valid" << endl;
+                cout << game;
                 continue;
             }
+
             else if (mark_result == 1)
+            {
+                cout<<game;
                 break;
+            }
             else
                 cerr << "Some error has occured" << endl;
+        }
 
-            if (game.checkwin(i, j))
-            {
-                cout << "Congratulations! Player " << player << " has won!" << endl;
-                someone_won = true;
-            }
-
+        if (game.checkwin())
+        {
+            cout << "Congratulations! Player " << player << " has won!" << endl;
+            someone_won = true;
+        }
+        else
+        {
             if (player == 1)
                 player = 2;
             else
