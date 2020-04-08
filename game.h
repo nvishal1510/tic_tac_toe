@@ -50,7 +50,7 @@ public:
     * or 0 when none of them won
     * @params last move grid coordinates
     */
-    int checkwin(int i, int j);
+    int checkwin();
 
     //overload << operator so as to use cout
     friend ostream &operator<<(ostream &os, const Game& game);

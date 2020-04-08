@@ -49,24 +49,27 @@ int Game::markbox(int i, int j, int player)
     return 1;
 }
 
-int Game::checkwin(int i, int j)
+int Game::checkwin()
 {
-    //check keeping the row constant
-    if (_grid[i][0] == _grid[i][1] && _grid[i][1] == _grid[i][2])
-        return _grid[i][j];
-
-    //check keeping the column constant
-    if (_grid[0][j] == _grid[1][j] && _grid[1][j] == _grid[2][j])
-        return _grid[i][j];
-
-    //if box is the center grid, check diagonal
-    if (i == 1 and j == 1)
+    //check row wise
+    for (int i = 0; i < 3; i++)
     {
-        if (_grid[0][0] == _grid[1][1] and _grid[1][1] == _grid[2][2])
-            return _grid[i][j];
-        if (_grid[2][0] == _grid[1][1] and _grid[1][1] == _grid[0][2])
-            return _grid[i][j];
+        if (_grid[i][0] == _grid[i][1] and _grid[i][1] == _grid[i][2] and _grid[i][0]!=0)
+            return _grid[i][0];
     }
+
+    //check column wise
+    for (int i = 0; i < 3; i++)
+    {
+        if (_grid[0][i] == _grid[1][i] and _grid[1][i] == _grid[2][i] and _grid[0][i]!=0)
+            return _grid[i][0];
+    }
+
+    //check diagonals
+    if (_grid[0][0] == _grid[1][1] and _grid[1][1] == _grid[2][2] and _grid[1][1]!=0)
+        return _grid[1][1];
+    if (_grid[2][0] == _grid[1][1] and _grid[1][1] == _grid[0][2] and _grid[1][1]!=0)
+        return _grid[1][1];
 
     return 0;
 }
