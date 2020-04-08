@@ -2,12 +2,12 @@
 #include "game.h"
 using namespace std;
 
-Game::Game() : _count(0), _player_1_symbol('O'), _player_2_symbol('X')
+Game::Game() : count(0), _player_1_symbol('O'), _player_2_symbol('X')
 {
     _grid = vector<vector<int>>(3, vector<int>(3, -1));
 }
 
-Game::Game(char player_1_symbol, char player_2_symbol) : _count(0), _player_1_symbol(player_1_symbol), _player_2_symbol(player_2_symbol)
+Game::Game(char player_1_symbol, char player_2_symbol) : count(0), _player_1_symbol(player_1_symbol), _player_2_symbol(player_2_symbol)
 {
     _grid = vector<vector<int>>(3, vector<int>(3, -1));
 }
@@ -28,30 +28,28 @@ bool Game::_check_params_player(int player)
         return false;
 }
 
-int Game::_check_if_marked(int i, int j)
+int Game::check_if_marked(int i, int j)
 {
-    //uncomment if made public
-    // if (!_check_params_index(i) || !_check_params_index(j))
-    //     return -1;
+    if (!_check_params_index(i) || !_check_params_index(j))
+        return -1;
     if (_grid[i][j] == 0)
         return 0;
     else
         return 1;
 }
 
-int Game::_markbox(int i, int j, int player)
+int Game::markbox(int i, int j, int player)
 {
-    //uncomment if made public
-    // if (!_check_params_index(i) || !_check_params_index(j) || !_check_params_player(player))
-    //     return -1;
-    if (_check_if_marked(i, j) == 1)
+    if (!_check_params_index(i) || !_check_params_index(j) || !_check_params_player(player))
+        return -1;
+    if (check_if_marked(i, j) == 1)
         return 0;
     _grid[i][j] = player;
-    _count++;
+    count++;
     return 1;
 }
 
-int Game::_checkwin(int i, int j)
+int Game::checkwin(int i, int j)
 {
     //check keeping the row constant
     if (_grid[i][0] == _grid[i][1] && _grid[i][1] == _grid[i][2])
@@ -82,7 +80,7 @@ ostream &operator<<(ostream &os, const Game &game)
         for (int j = 0; j < 3; j++)
         {
             switch (game._grid[i][j])
-{
+            {
             case 1:
                 grid[i][j] = game._player_1_symbol;
                 break;
