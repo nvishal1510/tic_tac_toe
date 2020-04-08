@@ -4,12 +4,12 @@ using namespace std;
 
 Game::Game() : count(0), _player_1_symbol('O'), _player_2_symbol('X')
 {
-    _grid = vector<vector<int>>(3, vector<int>(3, -1));
+    _grid = vector<vector<int>>(3, vector<int>(3, 0));
 }
 
 Game::Game(char player_1_symbol, char player_2_symbol) : count(0), _player_1_symbol(player_1_symbol), _player_2_symbol(player_2_symbol)
 {
-    _grid = vector<vector<int>>(3, vector<int>(3, -1));
+    _grid = vector<vector<int>>(3, vector<int>(3, 0));
 }
 
 bool Game::_check_params_index(int i)
@@ -30,7 +30,7 @@ bool Game::_check_params_player(int player)
 
 int Game::check_if_marked(int i, int j)
 {
-    if (!_check_params_index(i) || !_check_params_index(j))
+    if (_check_params_index(i) and _check_params_index(j))
         return -1;
     if (_grid[i][j] == 0)
         return 0;
@@ -40,7 +40,7 @@ int Game::check_if_marked(int i, int j)
 
 int Game::markbox(int i, int j, int player)
 {
-    if (!_check_params_index(i) || !_check_params_index(j) || !_check_params_player(player))
+    if (_check_params_index(i) and _check_params_index(j) and _check_params_player(player))
         return -1;
     if (check_if_marked(i, j) == 1)
         return 0;
